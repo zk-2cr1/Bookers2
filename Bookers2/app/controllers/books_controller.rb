@@ -1,9 +1,9 @@
 class BooksController < ApplicationController
 
   def index
-    @book = Book.new #新規投稿はbookのindexページで行うからここに記述
-    @books = Book.all #bookの一覧表示
-    @user = current_user #現在ログインしているユーザーの編集
+    @book = Book.new
+    @books = Book.all
+    @user = current_user
   end
 
   def create
@@ -11,7 +11,7 @@ class BooksController < ApplicationController
     @book.user_id = current_user.id
     if @book.save
       flash[:notice] = "You have created book successfully."
-      redirect_to book_path(@book.id) #新規投稿したらbookのshowページに遷移
+      redirect_to book_path(@book.id)
     else
       @books = Book.all
       @user = current_user
@@ -38,16 +38,16 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     if @book.update(book_params)
       flash[:notice] = "You have updated book successfully."
-      redirect_to book_path(@book.id) #投稿の更新したらbookのshowページに遷移
+      redirect_to book_path(@book.id)
     else
       render :edit
     end
   end
 
   def destroy
-    book = Book.find(params[:id]) #データ（レコード）を1件取得
-    book.destroy #データ（レコード）を削除
-    redirect_to books_path #ユーザーの詳細画面へリダイレクト
+    book = Book.find(params[:id])
+    book.destroy
+    redirect_to books_path
   end
 
 
